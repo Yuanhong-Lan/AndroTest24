@@ -13,7 +13,7 @@ This repository provides the corresponding artifacts, including:<br />① The **
 
 ## 2. Artifact-① **AndroTest24 App Benchmark**
 ### 2.1 APK File
-A zip file containing all the 42 APK files of the AndroTest24 App Benchmark can be achieved from [GoogleDrive](https://drive.google.com/file/d/1N_wN-7HOy_vXLjqDoIC5cppTjQPwn0Go/view?usp=sharing).
+A zip file containing all the 42 APK files of the AndroTest24 App Benchmark can be achieved from [GoogleDrive](https://drive.google.com/drive/folders/19efppfJEJ-z463v9BRsldv190CMDEog_?usp=drive_link).
 
 ### 2.2 App Source
 The 42 apps and their sources are listed below:<br />_(Note: Some app links may be later broken due to some issues, e.g., the project has stopped)_
