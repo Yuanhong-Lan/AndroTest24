@@ -66,9 +66,9 @@ The 42 apps and their sources are listed below:<br />_(Note: Some app links may 
 
 <br/>
 
-## 3. Artifact-② Study Data (/study_data)
+## 3. Artifact-② Study Data
 ### 3.1 The Original Statistics Table
-The original statistics tables of our study are provided under `/study_data`.<br />They are organized according to our Research Questions and have been renamed for better understandability.
+The original statistics tables of our study are provided under `/Study_Data`.<br />They are organized according to our Research Questions and have been renamed for better understandability.
 
 ### 3.2 Involved Testing Approaches
 #### (1) Random-Based
