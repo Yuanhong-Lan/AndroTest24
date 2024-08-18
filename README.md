@@ -62,3 +62,69 @@ The 42 apps and their sources are listed below:<br />_(Note: Some app links may 
 | KindMind | [https://codeberg.org/fswb/kindmind](https://codeberg.org/fswb/kindmind) |
 | CEToolbox | [https://github.com/cetoolbox/cetoolbox](https://github.com/cetoolbox/cetoolbox) |
 | WhoHasMyStuff | [https://gitlab.com/stovocor/whohasmystuff](https://gitlab.com/stovocor/whohasmystuff) |
+
+
+<br/>
+
+## 3. Artifact-② Study Data (/study_data)
+### 3.1 The Original Statistics Table
+The original statistics tables of our study are provided under `/study_data`.<br />They are organized according to our Research Questions and have been renamed for better understandability.
+
+### 3.2 Involved Testing Approaches
+#### (1) Random-Based
+Monkey
+
+- Tool: https://developer.android.com/studio/test/other-testing-tools/monkey
+- Parameters: `--ignore-crashes --ignore-timeouts --ignore-security-exceptions -v --throttle 200`
+#### (2) Model-Based
+Stoat
+
+- Paper: [ESEC/FSE’17] Guided, stochastic model-based GUI testing of Android apps
+- Tool: https://github.com/tingsu/Stoat
+
+APE
+
+- Paper: [ICSE’19] Practical GUI Testing of Android Applications via Model Abstraction and Refinement
+- Tool: https://github.com/tianxiaogu/ape
+#### (3) Systematic
+ComboDroid
+
+- Paper: [ICSE’20] ComboDroid: Generating High-Quality Test Inputs for Android Apps via Use Case Combinations
+- Tool: https://github.com/skull591/ComboDroid-Artifact
+#### (4) Machine-Learning-Based
+**(4.1) Supervised-Learning-Based**<br />Humanoid
+
+- Paper: [ASE’19] Humanoid: A Deep Learning-based Approach to Automated Black-box Android App Testing
+- Tool: https://github.com/yzygitzh/Humanoid
+
+**(4.2) Tabular-RL-Based**<br />Q-testing
+
+- Paper: [ISSTA’20] Reinforcement Learning Based Curiosity-Driven Testing of Android Applications
+- Tool: https://github.com/anlalalu/Q-testing
+
+**(4.3) Deep-RL-Based**<br />ARES
+
+- Paper: [TOSEM’22] Deep Reinforcement Learning for Black-box Testing of Android Apps
+- Tool: https://github.com/H2SO4T/ARES
+
+DQT
+
+- Paper: [ICSE’24] Deeply Reinforcing Android GUI Testing with Deep Reinforcement Learning
+- Tool: https://github.com/Yuanhong-Lan/DQT
+
+### 3.3 Emulator Settings
+#### Basic Settings
+
+- Hardware: Google Pixel 2
+- Resolution: 1080*1920
+- Android Version: Android 9.0 (API Level 28)
+- Google Sevice: Google APIs
+#### Storage
+
+- RAM: 4GB
+- VM Heap: 2GB
+- Internal Storage: 8GB
+- SD Card: 1GB
+
+<br/>
+
