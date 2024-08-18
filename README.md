@@ -128,3 +128,40 @@ DQT
 
 <br/>
 
+## 4. Artifact-③ SATE Framework
+### 4.1 Introduction
+The Statistical Android Testing Evaluation (SATE) Framework is proposed to empower and enhance future mobile testing evaluations. It is unique in its out-of-the-box functionality with rigorous statistical analysis for test metrics and efficient data management integration for large-scale, multi-type testing data.
+
+### 4.2 Source Code
+The SATE framework is provided under `/SATE`.
+```
+SATE
+├── android_testing_utils/log  Log helper.
+├── constant  Some constants loaded from config.yaml.
+├── evaluation  The main part of SATE.
+│   ├── data_manager  Data managing and scheduling.
+│   └── result_analyzer  Main analyzation.
+│       ├── analysis  Statistical analysis methods.
+│       ├── excel  Data.
+│       ├── study_analyzer  Analyzers tailored for our study.
+│       └── utils  Practical utils.
+└── runtime_collection  Some dependent data structures and test configs.
+
+```
+
+### 4.3 Environment
+
+- Python: Tested on **Python 3.7**, recommended to build the Python project and environment under `/SATE/` to avoid import problems.
+- Requirements: `pip install -r /SATE/requirements.txt`
+
+### 4.4 Run
+
+- Sample raw data has been provided under `/SATE/evaluation/result_analyzer/excel/`.
+- Uncommented code in the main fields of our study analyzers under `/SATE/evaluation/result_analyzer/study_analyzer/` could be run directly.
+- Since there are some dependencies between data, it's recommended to run them in the following order:
+   1. granularities_analyzer.py
+   2. metrics_relation_analyzer.py
+   3. randomness_analyzer.py
+   4. convergence_analyzer.py
+- Note: A test shell (`/SATE/test.sh`), which relies on the `python` cmd, is also provided for a quick run of the above process. Please run it inside the Python environment.
+
