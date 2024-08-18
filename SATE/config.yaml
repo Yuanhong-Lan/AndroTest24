@@ -1,0 +1,21 @@
+PlatformConstant:
+  TIME_LENGTH : 10800
+  TIME_INTERVAL : 30
+
+  STATISTICS_DATA_ROOT_DIR : "/DATA/experimental_results/statistics_data"
+
+  TOOL_LOG_ROOT_DIR : "/DATA/experimental_results/log"
+  LOGCAT_BUG_ROOT_DIR : "/DATA/experimental_results/logcat_bug"
+
+  APK_DIR : "/DATA/app"
+
+  DEVICE_EC_DIR : "/mnt/sdcard/coverage"
+  LOCAL_EC_DIR : "/DATA/coverage_ec/"
+  INSTRUMENTED_CODE_ROOT : "/DATA/open-source_app_instrumented"
+  COVERAGE_DATA_ROOT_DIR : "/DATA/experimental_results/coverage_result"
+
+  DEVICE_SCREEN_RECORD_ROOT_DIR : "/sdcard/screen_record"
+  LOCAL_SCREEN_RECORD_ROOT_DIR : "/DATA/experimental_results/screen_record"
+
+  DEVICE_ANR_DIR : "/data/anr"
+  ANR_BUG_ROOT_DIR : "/DATA/experimental_results/anr_bug"

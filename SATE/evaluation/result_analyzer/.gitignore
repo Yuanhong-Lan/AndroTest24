@@ -1,0 +1,11 @@
+/excel/*
+
+!/excel/bug/
+/excel/bug/*
+!/excel/bug/1st_original_data/
+
+!/excel/coverage/
+/excel/coverage/*
+!/excel/coverage/1st_original_data/
+
+!/excel/pickle/
