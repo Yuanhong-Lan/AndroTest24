@@ -3,20 +3,57 @@
 ### 1.1 Introduction
 The AndroTest24 Study is the first comprehensive statistical study of existing Android GUI testing metrics. It involves extensive experiments with 3-hour, 10-repetition tests on 42 diverse apps across 8 representative state-of-the-art testing approaches from diverse categories with typical testing methodologies. It examines the statistical significance, correlation, and variation of the testing metrics while applying them for comparative evaluation.
 
+
+
 ### 1.2 Publication
 For more details about our study, please refer to our ASE 2024 paper "Navigating Mobile Testing Evaluation: A Comprehensive Statistical Analysis of Android GUI Testing Metrics".
 
+```plain
+@inproceedings{10.1145/3691620.3695476,
+  author = {Lan, Yuanhong and Lu, Yifei and Pan, Minxue and Li, Xuandong},
+  title = {Navigating Mobile Testing Evaluation: A Comprehensive Statistical Analysis of Android GUI Testing Metrics},
+  year = {2024},
+  isbn = {9798400712487},
+  publisher = {Association for Computing Machinery},
+  address = {New York, NY, USA},
+  url = {https://doi.org/10.1145/3691620.3695476},
+  doi = {10.1145/3691620.3695476},
+  booktitle = {Proceedings of the 39th IEEE/ACM International Conference on Automated Software Engineering},
+  pages = {944–956},
+  numpages = {13},
+  keywords = {mobile testing, testing metrics and evaluation, statistical analysis},
+  location = {Sacramento, CA, USA},
+  series = {ASE '24}
+}
+```
+
+
+
 ### 1.3 Artifacts
-This repository provides the corresponding artifacts, including:<br />① The **AndroTest24 App Benchmark**, consisting of 42 active open-source apps that are achieved from the integration of more than ten previous open-source benchmarks.<br />② The **Study Data** of our study, organized by our Research Questions.<br />③ The **SATE (Statistical Android Testing Evaluation) Framework**, to promote effective statistical mobile testing evaluation.
+This repository provides the corresponding artifacts, including:
+
+① The **AndroTest24 App Benchmark**, consisting of 42 active open-source apps that are achieved from the integration of more than ten previous open-source benchmarks.
+
+② The **Study Data** of our study, organized by our Research Questions.
+
+③ The **SATE (Statistical Android Testing Evaluation) Framework**, to promote effective statistical mobile testing evaluation.
+
+
 
 <br/>
+
+
 
 ## 2. Artifact-① **AndroTest24 App Benchmark**
 ### 2.1 APK File
 A zip file containing all the 42 APK files of the AndroTest24 App Benchmark can be achieved from [GoogleDrive](https://drive.google.com/drive/folders/19efppfJEJ-z463v9BRsldv190CMDEog_?usp=drive_link).
 
+
+
 ### 2.2 App Source
-The 42 apps and their sources are listed below:<br />_(Note: Some app links may be later broken due to some issues, e.g., the project has stopped)_
+The 42 apps and their sources are listed below:
+
+_(Note: Some app links may be later broken due to some issues, e.g., the project has stopped)_
 
 | **App** | **Source** |
 | --- | --- |
@@ -64,77 +101,102 @@ The 42 apps and their sources are listed below:<br />_(Note: Some app links may 
 | WhoHasMyStuff | [https://gitlab.com/stovocor/whohasmystuff](https://gitlab.com/stovocor/whohasmystuff) |
 
 
+
+
 <br/>
+
+
 
 ## 3. Artifact-② Study Data
 ### 3.1 The Original Statistics Table
-The original statistics tables of our study are provided under `/Study_Data`.<br />They are organized according to our Research Questions and have been renamed for better understandability.
+The original statistics tables of our study are provided under `/Study_Data`.
+
+They are organized according to our Research Questions and have been renamed for better understandability.
+
+
 
 ### 3.2 Involved Testing Approaches
 #### (1) Random-Based
 Monkey
 
-- Tool: https://developer.android.com/studio/test/other-testing-tools/monkey
-- Parameters: `--ignore-crashes --ignore-timeouts --ignore-security-exceptions -v --throttle 200`
++ Tool: https://developer.android.com/studio/test/other-testing-tools/monkey
++ Parameters: `--ignore-crashes --ignore-timeouts --ignore-security-exceptions -v --throttle 200`
+
 #### (2) Model-Based
 Stoat
 
-- Paper: [ESEC/FSE’17] Guided, stochastic model-based GUI testing of Android apps
-- Tool: https://github.com/tingsu/Stoat
++ Paper: [ESEC/FSE’17] Guided, stochastic model-based GUI testing of Android apps
++ Tool: https://github.com/tingsu/Stoat
 
 APE
 
-- Paper: [ICSE’19] Practical GUI Testing of Android Applications via Model Abstraction and Refinement
-- Tool: https://github.com/tianxiaogu/ape
++ Paper: [ICSE’19] Practical GUI Testing of Android Applications via Model Abstraction and Refinement
++ Tool: https://github.com/tianxiaogu/ape
+
 #### (3) Systematic
 ComboDroid
 
-- Paper: [ICSE’20] ComboDroid: Generating High-Quality Test Inputs for Android Apps via Use Case Combinations
-- Tool: https://github.com/skull591/ComboDroid-Artifact
++ Paper: [ICSE’20] ComboDroid: Generating High-Quality Test Inputs for Android Apps via Use Case Combinations
++ Tool: https://github.com/skull591/ComboDroid-Artifact
+
 #### (4) Machine-Learning-Based
-**(4.1) Supervised-Learning-Based**<br />Humanoid
+**(4.1) Supervised-Learning-Based**
 
-- Paper: [ASE’19] Humanoid: A Deep Learning-based Approach to Automated Black-box Android App Testing
-- Tool: https://github.com/yzygitzh/Humanoid
+Humanoid
 
-**(4.2) Tabular-RL-Based**<br />Q-testing
++ Paper: [ASE’19] Humanoid: A Deep Learning-based Approach to Automated Black-box Android App Testing
++ Tool: https://github.com/yzygitzh/Humanoid
 
-- Paper: [ISSTA’20] Reinforcement Learning Based Curiosity-Driven Testing of Android Applications
-- Tool: https://github.com/anlalalu/Q-testing
+**(4.2) Tabular-RL-Based**
 
-**(4.3) Deep-RL-Based**<br />ARES
+Q-testing
 
-- Paper: [TOSEM’22] Deep Reinforcement Learning for Black-box Testing of Android Apps
-- Tool: https://github.com/H2SO4T/ARES
++ Paper: [ISSTA’20] Reinforcement Learning Based Curiosity-Driven Testing of Android Applications
++ Tool: https://github.com/anlalalu/Q-testing
+
+**(4.3) Deep-RL-Based**
+
+ARES
+
++ Paper: [TOSEM’22] Deep Reinforcement Learning for Black-box Testing of Android Apps
++ Tool: https://github.com/H2SO4T/ARES
 
 DQT
 
-- Paper: [ICSE’24] Deeply Reinforcing Android GUI Testing with Deep Reinforcement Learning
-- Tool: https://github.com/Yuanhong-Lan/DQT
++ Paper: [ICSE’24] Deeply Reinforcing Android GUI Testing with Deep Reinforcement Learning
++ Tool: https://github.com/Yuanhong-Lan/DQT
+
+
 
 ### 3.3 Emulator Settings
 #### Basic Settings
++ Hardware: Google Pixel 2
++ Resolution: 1080*1920
++ Android Version: Android 9.0 (API Level 28)
++ Google Sevice: Google APIs
 
-- Hardware: Google Pixel 2
-- Resolution: 1080*1920
-- Android Version: Android 9.0 (API Level 28)
-- Google Sevice: Google APIs
 #### Storage
++ RAM: 4GB
++ VM Heap: 2GB
++ Internal Storage: 8GB
++ SD Card: 1GB
 
-- RAM: 4GB
-- VM Heap: 2GB
-- Internal Storage: 8GB
-- SD Card: 1GB
+
 
 <br/>
+
+
 
 ## 4. Artifact-③ SATE Framework
 ### 4.1 Introduction
 The Statistical Android Testing Evaluation (SATE) Framework is proposed to empower and enhance future mobile testing evaluations. It is unique in its out-of-the-box functionality with rigorous statistical analysis for test metrics and efficient data management integration for large-scale, multi-type testing data.
 
+
+
 ### 4.2 Source Code
 The SATE framework is provided under `/SATE`.
-```
+
+```plain
 SATE
 ├── android_testing_utils/log  Log helper.
 ├── constant  Some constants loaded from config.yaml.
@@ -149,19 +211,23 @@ SATE
 
 ```
 
-### 4.3 Environment
 
-- Python: Tested on **Python 3.7**, recommended to build the Python project and environment under `/SATE/` to avoid import problems.
-- Requirements: `pip install -r /SATE/requirements.txt`
+
+### 4.3 Environment
++ Python: Tested on **Python 3.7**, recommended to build the Python project and environment under `/SATE/` to avoid import problems.
++ Requirements: `pip install -r /SATE/requirements.txt`
+
+
 
 ### 4.4 Run
++ Sample raw data has been provided under `/SATE/evaluation/result_analyzer/excel/`.
++ Uncommented code in the main fields of our study analyzers under `/SATE/evaluation/result_analyzer/study_analyzer/` could be run directly.
++ Since there are some dependencies between data, it's recommended to run them in the following order:
+    1. granularities_analyzer.py
+    2. metrics_relation_analyzer.py
+    3. randomness_analyzer.py
+    4. convergence_analyzer.py
++ Note: A test shell (`/SATE/test.sh`), which relies on the `python` cmd, is also provided for a quick run of the above process. Please run it inside the Python environment.
 
-- Sample raw data has been provided under `/SATE/evaluation/result_analyzer/excel/`.
-- Uncommented code in the main fields of our study analyzers under `/SATE/evaluation/result_analyzer/study_analyzer/` could be run directly.
-- Since there are some dependencies between data, it's recommended to run them in the following order:
-   1. granularities_analyzer.py
-   2. metrics_relation_analyzer.py
-   3. randomness_analyzer.py
-   4. convergence_analyzer.py
-- Note: A test shell (`/SATE/test.sh`), which relies on the `python` cmd, is also provided for a quick run of the above process. Please run it inside the Python environment.
+
 
