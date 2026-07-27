@@ -1,0 +1,26 @@
+name: sate_collector
+description: Flutter collector for SATE framework - captures coverage and fault data
+version: 0.1.0
+homepage: https://github.com/Yuanhong-Lan/AndroTest24
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  path: ^1.9.0
+  json_annotation: ^4.8.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  build_runner: ^2.4.0
+  json_serializable: ^6.7.0
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: com.example.sate_collector
+        pluginClass: SateCollectorPlugin
