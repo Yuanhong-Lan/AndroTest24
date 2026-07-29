@@ -6,12 +6,19 @@ Flutter SATE Bridge - Converts Flutter collector output to SATE format.
 import json
 import pickle
 import logging
+import sys
 from pathlib import Path
 from typing import Dict, List, Optional
 from dataclasses import dataclass
 from datetime import datetime
 import numpy as np
 import click
+
+# Configure stdout/stderr encoding for cross-platform unicode support
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8')
+if hasattr(sys.stderr, 'reconfigure'):
+    sys.stderr.reconfigure(encoding='utf-8')
 
 # Configure logging
 logging.basicConfig(
@@ -108,7 +115,7 @@ def generate_logcat_file(json_data: Dict, output_path: Path, app_name: str):
     logger.info(f"  Faults: {len(faults)}")
     logger.info(f"  Screens: {len(screens)}")
     
-    with open(output_path, 'w') as f:
+    with open(output_path, 'w', encoding='utf-8') as f:
         # Write header
         f.write(f"# Logcat for {app_name}\n")
         f.write(f"# Generated: {datetime.now().isoformat()}\n")
@@ -174,9 +181,9 @@ def generate_placeholder_files(output_dir: Path, tag: str):
     
     for name in placeholder_names:
         file_path = output_dir / name
-        file_path.write_text("")
+        file_path.write_text("", encoding='utf-8')
         logger.debug(f"  Created: {file_path.name}")
-        print(f"  ✅ Placeholder: {file_path}")
+        click.echo(f"  ✅ Placeholder: {file_path}")
     
     logger.info("Placeholder files generated")
 
@@ -231,7 +238,7 @@ def main(json_input, output_dir, tag, package, fault_dir, verbose):
     # Read JSON
     logger.info("Reading JSON file...")
     try:
-        with open(json_path, 'r') as f:
+        with open(json_path, 'r', encoding='utf-8') as f:
             json_data = json.load(f)
         logger.info(f"JSON loaded successfully")
     except json.JSONDecodeError as e:
