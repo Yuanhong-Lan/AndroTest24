@@ -18,7 +18,7 @@ jobs:
     - name: Install Python dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r SATE/flutter_bridge/requirements.txt
+        pip install -r SATE/flutter_extension/bridge/requirements.txt
     - name: Verify Python bridge script syntax
       run: |
-        python -m py_compile SATE/flutter_bridge/bridge.py
+        python -m py_compile SATE/flutter_extension/bridge/bridge.py
