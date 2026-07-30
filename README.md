@@ -231,3 +231,11 @@ SATE
 
 
 
+### 4.5 Raw Data Collection
++ Code Coverage: JaCoCo (refer to [Android-Jacoco-Instrumentation-Guide](https://github.com/Yuanhong-Lan/Android-Jacoco-Instrumentation-Guide))
++ Fault Detection: Logcat
+
+
+
+### 4.6 Flutter Extension
+Thanks to the contribution from @assassinaj602. Besides native Android apps, SATE also supports Flutter apps now. For more details, please refer to [flutter_integration.md](SATE/flutter_extension/docs/flutter_integration.md).
