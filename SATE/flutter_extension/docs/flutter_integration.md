@@ -81,6 +81,8 @@ void main() {
     outputDir: './collector_output',      // Where to save data
     packageName: 'com.example.myapp',      // Your app's package name
     tag: 'test-run-1',                     // Unique identifier for this test run
+    enableTimeSeries: true,               // Enable time-series collection
+    coverageInterval: 30,                 // Capture every 30 seconds
   );
 
   runApp(const MyApp());
@@ -161,6 +163,91 @@ python bridge.py \
   --package com.example.myapp
 ```
 
+## Time-Series Coverage
+
+### Overview
+
+The Flutter SATE extension supports time-series coverage collection, allowing you to track coverage metrics at regular intervals during test execution. This is essential for SATE's statistical analysis, which expects coverage data over time.
+
+### Configuration
+
+Enable time-series coverage when starting the collector:
+
+```dart
+SateCollector.instance.start(
+  outputDir: './collector_output',
+  packageName: 'com.example.myapp',
+  tag: 'test-run-1',
+  enableTimeSeries: true,     // Enable time-series collection
+  coverageInterval: 30,       // Capture every 30 seconds
+  verbose: true,              // See progress logs
+);
+```
+
+### How It Works
+
+1. **Initial Snapshot**: Coverage is captured immediately when the collector starts
+2. **Periodic Snapshots**: Coverage is captured at the configured interval
+3. **Event Recording**: Each snapshot is recorded as a `CoverageEvent` with a timestamp
+4. **Data Export**: All snapshots are included in `collector_output.json`
+5. **SATE Conversion**: The Python bridge converts time-series data to SATE's expected format
+
+### Output Format
+
+Each coverage snapshot includes:
+- `metric`: The coverage metric (LINE, METHOD, BRANCH, etc.)
+- `covered`: Number of covered items
+- `total`: Total number of items
+- `rate`: Coverage rate (`covered / total`)
+- `timestamp`: Unix timestamp when snapshot was captured
+
+### Example Output
+
+```json
+{
+  "events": [
+    {
+      "type": "coverage",
+      "timestamp": 1700000000,
+      "data": {
+        "metric": "LINE",
+        "covered": 45,
+        "total": 100,
+        "rate": 0.45
+      }
+    },
+    {
+      "type": "coverage",
+      "timestamp": 1700000030,
+      "data": {
+        "metric": "LINE",
+        "covered": 55,
+        "total": 100,
+        "rate": 0.55
+      }
+    }
+  ]
+}
+```
+
+### SATE Compatibility
+
+The time-series data is fully compatible with SATE's expected input format. Each metric contains multiple `CoverageItem` entries with different timestamps, allowing SATE to perform time-based statistical analysis.
+
+### Performance Considerations
+
+- **Interval Selection**: Shorter intervals provide more data points but increase overhead
+- **Recommended Interval**: 30 seconds balances data granularity with performance
+- **Test Duration**: 3 hours (10,800 seconds) is the standard SATE test duration
+- **Data Points**: At 30-second intervals, expect ~360 data points per metric
+
+### Use Cases
+
+- **Research Studies**: Track coverage evolution over time
+- **Performance Analysis**: Identify when coverage stabilizes
+- **Tool Comparison**: Compare coverage growth rates between testing tools
+- **Convergence Analysis**: Determine when additional testing stops improving coverage
+
 ## Complete Example
 
 ### Full Flutter App with Collector
@@ -172,11 +259,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_extension_collector/sate_collector.dart';
 
 void main() {
-  // Initialize collector
+  // Initialize collector with time-series enabled
   SateCollector.instance.start(
     outputDir: './collector_output',
     packageName: 'com.example.demo_app',
     tag: 'demo-run-1',
+    enableTimeSeries: true,
+    coverageInterval: 10,
+    verbose: true,
   );
 
   runApp(const MyApp());
@@ -251,11 +341,6 @@ class HomeScreen extends StatelessWidget {
                   metric: 'LINE',
                   covered: 45,
                   total: 100,
-                );
-                SateCollector.instance.recordCoverage(
-                  metric: 'METHOD',
-                  covered: 8,
-                  total: 20,
                 );
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Coverage recorded!')),
@@ -334,7 +419,7 @@ ls -la ./sate_output/com.example.demo_app/demo-run-1/
 
 | Method | Description | Parameters |
 |--------|-------------|------------|
-| `start()` | Initialize the collector | `outputDir`: String (required)<br>`packageName`: String (required)<br>`tag`: String (required) |
+| `start()` | Initialize the collector | `outputDir`: String (required)<br>`packageName`: String (required)<br>`tag`: String (required)<br>`enableTimeSeries`: bool (optional)<br>`coverageInterval`: int (optional)<br>`lcovPath`: String? (optional) |
 | `stop()` | Stop and save data | Returns `Future<void>` |
 | `recordScreen()` | Record screen navigation | `screenName`: String<br>`previousScreen`: String? (optional) |
 | `recordFault()` | Record an exception/fault | `severity`: String ('FATAL', 'ANR', 'E+', 'E')<br>`exception`: String<br>`message`: String<br>`stackTrace`: String<br>`tag`: String? (optional) |
@@ -386,7 +471,9 @@ When a fault has tag matching any of these, it's classified as E+:
     "package": "com.example.myapp",
     "tag": "test-run-1",
     "start_time": 1700000000,
-    "end_time": 1700010800
+    "end_time": 1700010800,
+    "time_series_enabled": true,
+    "coverage_interval": 30
   },
   "events": [
     {
