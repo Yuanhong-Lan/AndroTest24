@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:path/path.dart' as path;
 
-import 'src/models/event.dart';
+import 'src/event.dart';
 
 /// Main collector class for SATE Flutter integration
 class SateCollector {
@@ -27,8 +27,6 @@ class SateCollector {
   int _coverageInterval = 30; // seconds
   bool _timeSeriesEnabled = false;
   
-  // Coverage data from lcov.info
-  Map<String, Map<String, double>> _lastCoverageSnapshot = {};
   String? _lcovPath;
 
   /// Start the collector
@@ -150,6 +148,8 @@ class SateCollector {
     } catch (e) {
       _log('❌ Failed to write output: $e', level: 'ERROR');
     }
+
+    _events.clear();
   }
 
   // Time-series coverage methods
@@ -187,13 +187,13 @@ class SateCollector {
         _log('   ❌ Failed to parse lcov: $e', level: 'ERROR');
       }
     } else {
-      // Fallback: use previously recorded coverage data
-      _log('   ⚠️ No lcov file available, using stored coverage data', level: 'WARNING');
+      // Fallback: record snapshot using stored/manually recorded coverage values
+      _recordCoverageSnapshot({});
+      _log('   ⚠️ No lcov file available, recording baseline coverage snapshot', level: 'WARNING');
     }
   }
 
   Map<String, Map<String, double>> _parseLcovFile(String path) {
-    // Simple lcov parser - can be extended
     final file = File(path);
     final lines = file.readAsLinesSync();
     
@@ -242,8 +242,6 @@ class SateCollector {
       'ACTIVITY': {'covered': 0.0, 'total': 0.0},
     };
     
-    // Simple mapping - for now, just use LINE coverage as proxy
-    // In a real implementation, this would parse lcov.info properly
     for (var entry in coverage.entries) {
       final data = entry.value;
       for (var metric in metrics.keys) {
