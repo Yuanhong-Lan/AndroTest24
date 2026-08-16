@@ -13,28 +13,7 @@ class ErrorClassifier {
   static String classifyError(dynamic error, StackTrace? stack) {
     final errorStr = error.toString().toLowerCase();
 
-    // FATAL: Unhandled runtime crashes
-    if (error is TypeError ||
-        error is NoSuchMethodError ||
-        error is AssertionError ||
-        errorStr.contains('outofmemory') ||
-        errorStr.contains('stackoverflow') ||
-        errorStr.contains('unhandled exception') ||
-        errorStr.contains('rangeerror') ||
-        errorStr.contains('argumenterror') ||
-        errorStr.contains('stateerror')) {
-      return 'FATAL';
-    }
-
-    // ANR: Application Not Responding (timeout-related)
-    if (errorStr.contains('timeout') ||
-        errorStr.contains('timedout') ||
-        errorStr.contains('deadline') ||
-        (error is PlatformException && errorStr.contains('timeout'))) {
-      return 'ANR';
-    }
-
-    // E+: System/framework-level errors
+    // E+: System/framework-level errors (check first for framework exceptions like FlutterError)
     if (error is FlutterError ||
         error is PlatformException ||
         error is MissingPluginException ||
@@ -46,6 +25,26 @@ class ErrorClassifier {
         errorStr.contains('layout') ||
         errorStr.contains('rendering')) {
       return 'E+';
+    }
+
+    // ANR: Application Not Responding (timeout-related)
+    if (errorStr.contains('timeout') ||
+        errorStr.contains('timedout') ||
+        errorStr.contains('deadline')) {
+      return 'ANR';
+    }
+
+    // FATAL: Unhandled runtime crashes
+    if (error is TypeError ||
+        error is NoSuchMethodError ||
+        error is AssertionError ||
+        errorStr.contains('outofmemory') ||
+        errorStr.contains('stackoverflow') ||
+        errorStr.contains('unhandled exception') ||
+        errorStr.contains('rangeerror') ||
+        errorStr.contains('argumenterror') ||
+        errorStr.contains('stateerror')) {
+      return 'FATAL';
     }
 
     // E: Application-level errors (default)
