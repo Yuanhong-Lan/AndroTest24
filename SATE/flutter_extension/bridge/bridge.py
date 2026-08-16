@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
 Flutter SATE Bridge - Converts Flutter collector output to SATE format.
+Supports time-series coverage data.
 """
 
 import json
@@ -43,7 +44,10 @@ class CoverageItem:
 
 
 def convert_to_sate_coverage(json_data: Dict) -> Dict[str, List[Dict]]:
-    """Convert Flutter collector JSON to SATE .npy format."""
+    """Convert Flutter collector JSON to SATE .npy format.
+    
+    Supports time-series coverage: multiple snapshots per metric.
+    """
     
     logger.info("Converting coverage data to SATE format...")
     
@@ -52,7 +56,6 @@ def convert_to_sate_coverage(json_data: Dict) -> Dict[str, List[Dict]]:
     
     events = json_data.get("events", [])
     coverage_events = [e for e in events if e.get("type") == "coverage"]
-    logger.info(f"Found {len(coverage_events)} coverage events")
     
     # Group coverage events by metric
     coverage_by_metric = {}
@@ -69,18 +72,25 @@ def convert_to_sate_coverage(json_data: Dict) -> Dict[str, List[Dict]]:
                 "rate": float(data.get("rate", 0))
             }
         })
-        logger.debug(f"  {metric}: {data.get('covered', 0)}/{data.get('total', 0)}")
     
-    # Map to SATE keys
+    # Map to SATE keys with time-series support
     for key in metric_keys:
         if key in coverage_by_metric:
-            sate_coverage[key] = coverage_by_metric[key]
-            logger.info(f"  {key}: {len(coverage_by_metric[key])} entries")
+            # Sort by time (ascending)
+            sorted_items = sorted(coverage_by_metric[key], key=lambda x: x["time"])
+            sate_coverage[key] = sorted_items
+            logger.info(f"  {key}: {len(sorted_items)} time-series entries")
         else:
             sate_coverage[key] = []
             logger.debug(f"  {key}: no entries")
     
-    logger.info("Coverage conversion complete")
+    # Check for time-series metadata
+    metadata = json_data.get("metadata", {})
+    if metadata.get("time_series_enabled", False):
+        logger.info("✅ Time-series coverage detected")
+        logger.info(f"   Interval: {metadata.get('coverage_interval', 'N/A')} seconds")
+    
+    logger.info(f"Coverage conversion complete with {len(coverage_by_metric)} metrics")
     return sate_coverage
 
 
@@ -155,7 +165,7 @@ def generate_logcat_file(json_data: Dict, output_path: Path, app_name: str):
             f.write(f"[{timestamp:06d}] {log_level}/{tag}: {exception}: {message}\n")
             if stack_trace:
                 trace_lines = stack_trace.split('\n')
-                for line in trace_lines[:5]:  # First 5 lines
+                for line in trace_lines[:5]:
                     if line.strip():
                         f.write(f"  at {line.strip()}\n")
                 if len(trace_lines) > 5:
@@ -240,7 +250,7 @@ def main(json_input, output_dir, tag, package, fault_dir, verbose):
     try:
         with open(json_path, 'r', encoding='utf-8') as f:
             json_data = json.load(f)
-        logger.info(f"JSON loaded successfully")
+        logger.info("JSON loaded successfully")
     except json.JSONDecodeError as e:
         logger.error(f"Invalid JSON: {e}")
         return
